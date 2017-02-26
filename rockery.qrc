@@ -1,6 +1,5 @@
 <RCC>
     <qresource prefix="/">
-        <file>gallery.qml</file>
         <file>qtquickcontrols2.conf</file>
         <file>images/arrow.png</file>
         <file>images/arrow@2x.png</file>
@@ -68,5 +67,6 @@
         <file>pages/DelegatePage.qml</file>
         <file>Splash.qml</file>
         <file>images/rk-logo.png</file>
+        <file>rockery.qml</file>
     </qresource>
 </RCC>

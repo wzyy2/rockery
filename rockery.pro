@@ -1,18 +1,18 @@
 TEMPLATE = app
-TARGET = gallery
+TARGET = rockery
 QT += quick quickcontrols2
 
 SOURCES += \
-    gallery.cpp
+    rockery.cpp
 
 OTHER_FILES += \
-    gallery.qml \
+    rockery.qml \
     pages/*.qml
 
 RESOURCES += \
-    gallery.qrc
+    rockery.qrc
 
-target.path = $$[QT_INSTALL_EXAMPLES]/quickcontrols2/gallery
+target.path = $$[QT_INSTALL_EXAMPLES]/quickcontrols2/rockery
 INSTALLS += target
 
 DISTFILES += \

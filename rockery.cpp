@@ -56,7 +56,7 @@ int main(int argc, char *argv[])
     QQuickStyle::setStyle("material");
 
     QQmlApplicationEngine engine;
-    engine.load(QUrl("qrc:/gallery.qml"));
+    engine.load(QUrl("qrc:/rockery.qml"));
     if (engine.rootObjects().isEmpty())
         return -1;
 
