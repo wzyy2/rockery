@@ -69,7 +69,6 @@
         <file>images/rk-logo.png</file>
         <file>rockery.qml</file>
         <file>subapp_qml/video/video.qml</file>
-        <file>rockery.cpp</file>
         <file>images/video.svg</file>
         <file>images/play.svg</file>
         <file>images/stop.svg</file>

@@ -1,4 +1,4 @@
-import QtQuick 2.6
+import QtQuick 2.5
 import QtQuick.Controls 2.0
 import QtQuick.Controls.Material 2.0
 import QtMultimedia 5.0
@@ -9,9 +9,9 @@ import QtQuick.Window 2.1
 Page {
     id: page
 
-    function switchFullScreen()                                 // javascript functions
+    function switchFullScreen() // javascript functions
     {
-        if(!mainWindow.fullscreen) {
+        if (!mainWindow.fullscreen) {
             if (mainWindow.visibility === Window.FullScreen) {
                 mainWindow.showNormal()
             } else {
@@ -23,6 +23,11 @@ Page {
         footer.visible = !footer.visible
     }
 
+    Label {
+        id: metadata
+        font.pixelSize: 8
+    }
+
     FileDialog {
         id: fileDialog
         title: "Please choose a file"
@@ -31,7 +36,7 @@ Page {
             console.log("Open file: " + fileDialog.fileUrls)
             if (mediaplayer.playbackState == MediaPlayer.PlayingState)
                 mediaplayer.stop()
-            mediaplayer.source = fileDialog.fileUrls[0];
+            mediaplayer.source = fileDialog.fileUrls[0]
         }
         onRejected: {
             console.log("Canceled")
@@ -40,6 +45,7 @@ Page {
 
     MediaPlayer {
         id: mediaplayer
+        onPositionChanged: slider.value = position / duration
     }
 
     VideoOutput {
@@ -61,7 +67,7 @@ Page {
             anchors.fill: parent
 
             RowLayout {
-                anchors.left: parent.left;
+                anchors.left: parent.left
 
                 ToolButton {
                     contentItem: Image {
@@ -72,7 +78,13 @@ Page {
                         source: "qrc:/images/play.svg"
                     }
 
-                    onClicked: mediaplayer.play()
+                    onClicked: {
+                        mediaplayer.play()
+                        metadata.text = "videoCodec: \n" + mediaplayer.metaData.videoCodec + "\n"
+                        metadata.text += "resolution: \n" + mediaplayer.metaData.resolution + "\n"
+                        metadata.text += "videoFrameRate: \n" + mediaplayer.metaData.videoFrameRate + "\n"
+                        metadata.text += "videoBitRate: \n" + mediaplayer.metaData.videoBitRate + "\n"
+                    }
                 }
                 ToolButton {
                     contentItem: Image {
@@ -92,12 +104,23 @@ Page {
                         verticalAlignment: Image.AlignVCenter
                         source: "qrc:/images/stop.svg"
                     }
-                    onClicked: mediaplayer.stop()
+                    onClicked: {
+                        metadata.text = ""
+                        mediaplayer.stop()
+                    }
                 }
             }
 
+            Slider {
+                id: slider
+                Layout.fillWidth: true
+
+                value: 0.0
+                onValueChanged: mediaplayer.seek(value * mediaplayer.duration)
+            }
+
             RowLayout {
-                anchors.right: parent.right;
+                anchors.right: parent.right
 
                 ToolButton {
                     contentItem: Image {
@@ -121,9 +144,6 @@ Page {
                     onClicked: fileDialog.visible = true
                 }
             }
-
         }
     }
-
 }
-

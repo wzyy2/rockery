@@ -1,3 +1,4 @@
+
 /****************************************************************************
 **
 ** Copyright (C) 2015 The Qt Company Ltd.
@@ -37,7 +38,6 @@
 ** $QT_END_LICENSE$
 **
 ****************************************************************************/
-
 import QtQuick 2.0
 import QtQuick.Window 2.1
 
@@ -64,7 +64,9 @@ Window {
         }
     }
     Timer {
-        interval: timeoutInterval; running: true; repeat: false
+        interval: timeoutInterval
+        running: true
+        repeat: false
         onTriggered: {
             visible = false
             splash.timeout()
