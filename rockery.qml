@@ -44,17 +44,30 @@ import QtQuick.Controls 2.0
 import QtQuick.Controls.Material 2.0
 import QtQuick.Controls.Universal 2.0
 import Qt.labs.settings 1.0
+import com.rk.fpstext 1.0
 
 ApplicationWindow {
-    id: window
-    width: 360
-    height: 520
+    id: mainWindow
+    width: 960
+    height: 540
     visible: true
-    title: "Qt Quick Controls 2"
+    title: "Rockery"
 
-    Settings {
-        id: settings
-        property string style: "Default"
+    property bool fullscreen: false
+
+    function updateFPS() {
+        fps_text.recalculateFPS()
+    }
+
+    FPSText {
+            id: fps_text
+            anchors.right: parent.right;
+    }
+
+    onFullscreenChanged : {
+        if (fullscreen) {
+            mainWindow.showFullScreen()
+        }
     }
 
     Shortcut {
@@ -68,11 +81,16 @@ ApplicationWindow {
 
     header: ToolBar {
         Material.foreground: "white"
-        Material.background: "#014099"
 
         RowLayout {
             spacing: 20
             anchors.fill: parent
+
+            Text {
+                anchors.top: parent.top;
+                anchors.right: parent.right;
+                text: fps_text.fps.toFixed(2)
+            }
 
             ToolButton {
                 contentItem: Image {
@@ -91,17 +109,9 @@ ApplicationWindow {
                 }
             }
 
-            Label {
-                id: titleLabel
-                text: listView.currentItem ? listView.currentItem.text : "Gallery"
-                font.pixelSize: 20
-                elide: Label.ElideRight
-                horizontalAlignment: Qt.AlignHCenter
-                verticalAlignment: Qt.AlignVCenter
-                Layout.fillWidth: true
-            }
-
             ToolButton {
+                anchors.right: parent.right;
+
                 contentItem: Image {
                     fillMode: Image.Pad
                     horizontalAlignment: Image.AlignHCenter
@@ -116,10 +126,6 @@ ApplicationWindow {
                     transformOrigin: Menu.TopRight
 
                     MenuItem {
-                        text: "Settings"
-                        onTriggered: settingsPopup.open()
-                    }
-                    MenuItem {
                         text: "About"
                         onTriggered: aboutDialog.open()
                     }
@@ -130,8 +136,8 @@ ApplicationWindow {
 
     Drawer {
         id: drawer
-        width: Math.min(window.width, window.height) / 3 * 2
-        height: window.height
+        width: Math.min(mainWindow.width, mainWindow.height) / 3 * 2
+        height: mainWindow.height
         dragMargin: stackView.depth > 1 ? 0 : undefined
 
         ListView {
@@ -153,6 +159,9 @@ ApplicationWindow {
             }
 
             model: ListModel {
+                ListElement { title: "Video"; source: "qrc:/subapp_qml/video/video.qml" }
+
+
                 ListElement { title: "BusyIndicator"; source: "qrc:/pages/BusyIndicatorPage.qml" }
                 ListElement { title: "Button"; source: "qrc:/pages/ButtonPage.qml" }
                 ListElement { title: "CheckBox"; source: "qrc:/pages/CheckBoxPage.qml" }
@@ -193,119 +202,54 @@ ApplicationWindow {
         initialItem: Pane {
             id: pane
 
-            Image {
-                id: logo
-                width: pane.availableWidth / 2
-                height: pane.availableHeight / 2
-                anchors.centerIn: parent
-                anchors.verticalCenterOffset: -50
-                fillMode: Image.PreserveAspectFit
-                source: "qrc:/images/qt-logo.png"
+            SwipeView {
+                id: view
+                currentIndex: 1
+                anchors.fill: parent
+
+                Pane {
+                    width: view.width
+                    height: view.height
+
+                    Column {
+                        spacing: 40
+                        width: parent.width
+
+                        Label {
+                            width: parent.width
+                            wrapMode: Label.Wrap
+                            horizontalAlignment: Qt.AlignHCenter
+                            text: "Video subapp use qml-video, Video decoding will be done using gstreamer-rockchip.\n"
+                                  + "Video Rendering is done by qtsink which use GLESv2."
+                        }
+                    }
+                    Image {
+                        sourceSize.height: parent.height / 3
+
+                        source: "qrc:/images/video.svg"
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        anchors.verticalCenter: parent.verticalCenter
+
+                        MouseArea {
+                            anchors.fill: parent
+
+                            onClicked: {
+                                listView.currentIndex = 2
+                                stackView.push("qrc:/subapp_qml/video/video.qml")
+                                drawer.close()
+                            }
+                        }
+                    }
+                }
             }
 
-            Label {
-                text: "Qt Quick Controls 2 provides a set of controls that can be used to build complete interfaces in Qt Quick."
-                anchors.margins: 20
-                anchors.top: logo.bottom
-                anchors.left: parent.left
-                anchors.right: parent.right
-                anchors.bottom: arrow.top
-                horizontalAlignment: Label.AlignHCenter
-                verticalAlignment: Label.AlignVCenter
-                wrapMode: Label.Wrap
-            }
-
-            Image {
-                id: arrow
-                source: "qrc:/images/arrow.png"
-                anchors.left: parent.left
+            PageIndicator {
+                count: view.count
+                currentIndex: view.currentIndex
                 anchors.bottom: parent.bottom
-            }
-        }
-    }
-
-    Popup {
-        id: settingsPopup
-        x: (window.width - width) / 2
-        y: window.height / 6
-        width: Math.min(window.width, window.height) / 3 * 2
-        height: settingsColumn.implicitHeight + topPadding + bottomPadding
-        modal: true
-        focus: true
-
-        contentItem: ColumnLayout {
-            id: settingsColumn
-            spacing: 20
-
-            Label {
-                text: "Settings"
-                font.bold: true
+                anchors.horizontalCenter: parent.horizontalCenter
             }
 
-            RowLayout {
-                spacing: 10
-
-                Label {
-                    text: "Style:"
-                }
-
-                ComboBox {
-                    id: styleBox
-                    property int styleIndex: -1
-                    model: ["Default", "Material", "Universal"]
-                    Component.onCompleted: {
-                        styleIndex = find(settings.style, Qt.MatchFixedString)
-                        if (styleIndex !== -1)
-                            currentIndex = styleIndex
-                    }
-                    Layout.fillWidth: true
-                }
-            }
-
-            Label {
-                text: "Restart required"
-                color: "#e41e25"
-                opacity: styleBox.currentIndex !== styleBox.styleIndex ? 1.0 : 0.0
-                horizontalAlignment: Label.AlignHCenter
-                verticalAlignment: Label.AlignVCenter
-                Layout.fillWidth: true
-                Layout.fillHeight: true
-            }
-
-            RowLayout {
-                spacing: 10
-
-                Button {
-                    id: okButton
-                    text: "Ok"
-                    onClicked: {
-                        settings.style = styleBox.displayText
-                        settingsPopup.close()
-                    }
-
-                    Material.foreground: Material.primary
-                    Material.background: "transparent"
-                    Material.elevation: 0
-
-                    Layout.preferredWidth: 0
-                    Layout.fillWidth: true
-                }
-
-                Button {
-                    id: cancelButton
-                    text: "Cancel"
-                    onClicked: {
-                        styleBox.currentIndex = styleBox.styleIndex
-                        settingsPopup.close()
-                    }
-
-                    Material.background: "transparent"
-                    Material.elevation: 0
-
-                    Layout.preferredWidth: 0
-                    Layout.fillWidth: true
-                }
-            }
         }
     }
 
@@ -313,9 +257,9 @@ ApplicationWindow {
         id: aboutDialog
         modal: true
         focus: true
-        x: (window.width - width) / 2
-        y: window.height / 6
-        width: Math.min(window.width, window.height) / 3 * 2
+        x: (mainWindow.width - width) / 2
+        y: mainWindow.height / 6
+        width: Math.min(mainWindow.width, mainWindow.height) / 3 * 2
         contentHeight: aboutColumn.height
 
         Column {
@@ -329,16 +273,14 @@ ApplicationWindow {
 
             Label {
                 width: aboutDialog.availableWidth
-                text: "The Qt Quick Controls 2 module delivers the next generation user interface controls based on Qt Quick."
+                text: "Rockery is a simple demonstration application that help you do evaluations on rockchip opensource linux."
                 wrapMode: Label.Wrap
                 font.pixelSize: 12
             }
 
             Label {
                 width: aboutDialog.availableWidth
-                text: "In comparison to the desktop-oriented Qt Quick Controls 1, Qt Quick Controls 2 "
-                    + "are an order of magnitude simpler, lighter and faster, and are primarily targeted "
-                    + "towards embedded and mobile platforms."
+                text: "Developed by the Qt quick 2."
                 wrapMode: Label.Wrap
                 font.pixelSize: 12
             }
@@ -347,7 +289,7 @@ ApplicationWindow {
 
     property var splashWindow: Splash {
         onTimeout: {
-            window.visible = true
+            mainWindow.visible = true
         }
     }
 }

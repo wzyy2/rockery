@@ -3,11 +3,13 @@ TARGET = rockery
 QT += quick quickcontrols2
 
 SOURCES += \
-    rockery.cpp
+    rockery.cpp \
+    fpstext.cpp
 
 OTHER_FILES += \
     rockery.qml \
-    pages/*.qml
+    pages/*.qml \
+    subapp_qml/video/*.qml
 
 RESOURCES += \
     rockery.qrc
@@ -17,3 +19,6 @@ INSTALLS += target
 
 DISTFILES += \
     Splash.qml
+
+HEADERS += \
+    fpstext.h

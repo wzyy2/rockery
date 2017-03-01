@@ -41,8 +41,14 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
+#include <QDebug>
 #include <QSettings>
 #include <QQuickStyle>
+#include <QQuickItem>
+#include <QCommandLineParser>
+#include <QCommandLineOption>
+
+#include "fpstext.h"
 
 int main(int argc, char *argv[])
 {
@@ -55,10 +61,28 @@ int main(int argc, char *argv[])
     QSettings settings;
     QQuickStyle::setStyle("material");
 
+    /* show fps */
+    qmlRegisterType<FPSText>("com.rk.fpstext", 1, 0, "FPSText");
+
     QQmlApplicationEngine engine;
     engine.load(QUrl("qrc:/rockery.qml"));
     if (engine.rootObjects().isEmpty())
         return -1;
+    QObject *rootObject = engine.rootObjects().first();
+
+    QObject::connect(rootObject, SIGNAL(afterRendering()),
+                     rootObject, SLOT(updateFPS()));
+
+    /* fullscreen */
+    QCommandLineParser parser;
+    parser.addHelpOption();
+    parser.addVersionOption();
+    QCommandLineOption op1("f");
+    parser.addOption(op1);
+    parser.process(app);
+    if (rootObject && parser.isSet(op1)){
+        rootObject->setProperty("fullscreen", true);
+    }
 
     return app.exec();
 }

@@ -49,13 +49,13 @@ Window {
     flags: Qt.SplashScreen
     property int timeoutInterval: 2000
     signal timeout
-    width: window.width
-    height: window.height
+    width: mainWindow.width
+    height: mainWindow.height
 
     Image {
         id: splashImage
         source: "qrc:/images/rk-logo.png"
-        sourceSize.width: window.width / 1.5
+        sourceSize.width: mainWindow.width / 1.5
         anchors.verticalCenter: parent.verticalCenter
         anchors.horizontalCenter: parent.horizontalCenter
         MouseArea {
