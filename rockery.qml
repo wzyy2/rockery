@@ -163,114 +163,9 @@ ApplicationWindow {
                     title: "Video"
                     source: "qrc:/subapp_qml/video/video.qml"
                 }
-
                 ListElement {
-                    title: "BusyIndicator"
-                    source: "qrc:/pages/BusyIndicatorPage.qml"
-                }
-                ListElement {
-                    title: "Button"
-                    source: "qrc:/pages/ButtonPage.qml"
-                }
-                ListElement {
-                    title: "CheckBox"
-                    source: "qrc:/pages/CheckBoxPage.qml"
-                }
-                ListElement {
-                    title: "ComboBox"
-                    source: "qrc:/pages/ComboBoxPage.qml"
-                }
-                ListElement {
-                    title: "Dial"
-                    source: "qrc:/pages/DialPage.qml"
-                }
-                ListElement {
-                    title: "Delegates"
-                    source: "qrc:/pages/DelegatePage.qml"
-                }
-                ListElement {
-                    title: "Drawer"
-                    source: "qrc:/pages/DrawerPage.qml"
-                }
-                ListElement {
-                    title: "Frame"
-                    source: "qrc:/pages/FramePage.qml"
-                }
-                ListElement {
-                    title: "GroupBox"
-                    source: "qrc:/pages/GroupBoxPage.qml"
-                }
-                ListElement {
-                    title: "Menu"
-                    source: "qrc:/pages/MenuPage.qml"
-                }
-                ListElement {
-                    title: "PageIndicator"
-                    source: "qrc:/pages/PageIndicatorPage.qml"
-                }
-                ListElement {
-                    title: "Popup"
-                    source: "qrc:/pages/PopupPage.qml"
-                }
-                ListElement {
-                    title: "ProgressBar"
-                    source: "qrc:/pages/ProgressBarPage.qml"
-                }
-                ListElement {
-                    title: "RadioButton"
-                    source: "qrc:/pages/RadioButtonPage.qml"
-                }
-                ListElement {
-                    title: "RangeSlider"
-                    source: "qrc:/pages/RangeSliderPage.qml"
-                }
-                ListElement {
-                    title: "ScrollBar"
-                    source: "qrc:/pages/ScrollBarPage.qml"
-                }
-                ListElement {
-                    title: "ScrollIndicator"
-                    source: "qrc:/pages/ScrollIndicatorPage.qml"
-                }
-                ListElement {
-                    title: "Slider"
-                    source: "qrc:/pages/SliderPage.qml"
-                }
-                ListElement {
-                    title: "SpinBox"
-                    source: "qrc:/pages/SpinBoxPage.qml"
-                }
-                ListElement {
-                    title: "StackView"
-                    source: "qrc:/pages/StackViewPage.qml"
-                }
-                ListElement {
-                    title: "SwipeView"
-                    source: "qrc:/pages/SwipeViewPage.qml"
-                }
-                ListElement {
-                    title: "Switch"
-                    source: "qrc:/pages/SwitchPage.qml"
-                }
-                ListElement {
-                    title: "TabBar"
-                    source: "qrc:/pages/TabBarPage.qml"
-                }
-                ListElement {
-                    title: "TextArea"
-                    source: "qrc:/pages/TextAreaPage.qml"
-                }
-                ListElement {
-                    title: "TextField"
-                    source: "qrc:/pages/TextFieldPage.qml"
-                }
-                ListElement {
-                    title: "ToolTip"
-                    source: "qrc:/pages/ToolTipPage.qml"
-                }
-                ListElement {
-                    title: "Tumbler"
-                    source: "qrc:/pages/TumblerPage.qml"
+                    title: "GLES"
+                    source: "qrc:/subapp_qml/gles/gles.qml"
                 }
             }
 
@@ -290,6 +185,44 @@ ApplicationWindow {
                 id: view
                 currentIndex: 1
                 anchors.fill: parent
+
+                Pane {
+                    width: view.width
+                    height: view.height
+
+                    Column {
+                        spacing: 40
+                        width: parent.width
+
+                        Label {
+                            width: parent.width
+                            wrapMode: Label.Wrap
+                            horizontalAlignment: Qt.AlignHCenter
+                            text: "GLES subapp will help you test on-screen graphics rendering performance.\n"
+                                  + "To test off-screen performance, glmark2-es2 is a better choose. \n"
+                                  + "\n Under construction.\n"
+
+                        }
+                    }
+                    Image {
+                        sourceSize.height: parent.height / 3
+
+                        source: "qrc:/images/gpu.svg"
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        anchors.verticalCenter: parent.verticalCenter
+
+                        MouseArea {
+                            anchors.fill: parent
+
+                            onClicked: {
+                                listView.currentIndex = 2
+                                stackView.push(
+                                            "qrc:/subapp_qml/gles/gles.qml")
+                                drawer.close()
+                            }
+                        }
+                    }
+                }
 
                 Pane {
                     width: view.width
@@ -328,6 +261,71 @@ ApplicationWindow {
                         }
                     }
                 }
+
+                Pane {
+                    width: view.width
+                    height: view.height
+
+                    Column {
+                        spacing: 40
+                        width: parent.width
+
+                        Label {
+                            width: parent.width
+                            wrapMode: Label.Wrap
+                            horizontalAlignment: Qt.AlignHCenter
+                            text: "Camera subapp can show camera preview with rockchip isp driver.\n"
+                                  + "\n Under construction.\n"
+                        }
+                    }
+                    Image {
+                        sourceSize.height: parent.height / 3
+
+                        source: "qrc:/images/camera.svg"
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        anchors.verticalCenter: parent.verticalCenter
+
+                        MouseArea {
+                            anchors.fill: parent
+
+                            onClicked: {
+                            }
+                        }
+                    }
+                }
+
+                Pane {
+                    width: view.width
+                    height: view.height
+
+                    Column {
+//                        spacing: 40
+                        width: parent.width
+
+                        Label {
+                            width: parent.width
+                            wrapMode: Label.Wrap
+                            horizontalAlignment: Qt.AlignHCenter
+                            text: "Brower subapp provides an integrated Web browser component based on WebKit.\n"
+                                  + "\n Under construction.\n"
+                        }
+                    }
+                    Image {
+                        sourceSize.height: parent.height / 3
+
+                        source: "qrc:/images/brower.svg"
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        anchors.verticalCenter: parent.verticalCenter
+
+                        MouseArea {
+                            anchors.fill: parent
+
+                            onClicked: {
+                            }
+                        }
+                    }
+                }
+
             }
 
             PageIndicator {
@@ -366,7 +364,7 @@ ApplicationWindow {
 
             Label {
                 width: aboutDialog.availableWidth
-                text: "Developed by the Qt quick 2."
+                text: "Author: Jacob Chen (jacob2.chen@rock-chips.com)"
                 wrapMode: Label.Wrap
                 font.pixelSize: 12
             }
