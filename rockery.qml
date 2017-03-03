@@ -126,9 +126,10 @@ ApplicationWindow {
                 }
             }
 
-            Text {
-                anchors.top: parent.top
-                anchors.right: parent.right
+            Label {
+                anchors.horizontalCenter: parent.horizontalCenter
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.centerIn: parent.Center
                 text: fps_text.fps.toFixed(2)
             }
         }
@@ -368,12 +369,6 @@ ApplicationWindow {
                 wrapMode: Label.Wrap
                 font.pixelSize: 12
             }
-        }
-    }
-
-    property var splashWindow: Splash {
-        onTimeout: {
-            mainWindow.visible = true
         }
     }
 }

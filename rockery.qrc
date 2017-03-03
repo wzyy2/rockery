@@ -37,7 +37,6 @@
         <file>images/qt-logo@2x.png</file>
         <file>images/qt-logo@3x.png</file>
         <file>images/qt-logo@4x.png</file>
-        <file>Splash.qml</file>
         <file>images/rk-logo.png</file>
         <file>rockery.qml</file>
         <file>subapp_qml/video/video.qml</file>

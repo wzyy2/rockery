@@ -18,7 +18,6 @@ target.path = $$[QT_INSTALL_EXAMPLES]/quickcontrols2/rockery
 INSTALLS += target
 
 DISTFILES += \
-    Splash.qml \
     subapp_qml/video/*.qml \
     subapp_qml/gles/*.qml
 
