@@ -211,10 +211,11 @@ ApplicationWindow {
                         source: "qrc:/images/gpu.svg"
                         anchors.horizontalCenter: parent.horizontalCenter
                         anchors.verticalCenter: parent.verticalCenter
+                        opacity: gpubtn.pressed? 0.5 : 1
 
                         MouseArea {
+                            id: gpubtn
                             anchors.fill: parent
-
                             onClicked: {
                                 listView.currentIndex = 2
                                 stackView.push(
@@ -240,7 +241,6 @@ ApplicationWindow {
                             text: "Video subapp use qml-video, Video decoding will be done using gstreamer-rockchip.\n"
                                   + "Video Rendering is done by qtsink which use GLESv2 by default.\n\n"
                                   + "If QT_GSTREAMER_WINDOW_VIDEOSINK was set, the other sink will be used.\n"
-                                  + "X11: eglglessink(zero-copy), rkximagesink(drm) Wayland: waylandsink."
                         }
                     }
                     Image {
@@ -249,8 +249,10 @@ ApplicationWindow {
                         source: "qrc:/images/video.svg"
                         anchors.horizontalCenter: parent.horizontalCenter
                         anchors.verticalCenter: parent.verticalCenter
+                        opacity: videobtn.pressed? 0.5 : 1
 
                         MouseArea {
+                            id: videobtn
                             anchors.fill: parent
 
                             onClicked: {
@@ -285,8 +287,9 @@ ApplicationWindow {
                         source: "qrc:/images/camera.svg"
                         anchors.horizontalCenter: parent.horizontalCenter
                         anchors.verticalCenter: parent.verticalCenter
-
+                        opacity: camerabtn.pressed? 0.5 : 1
                         MouseArea {
+                            id: camerabtn
                             anchors.fill: parent
 
                             onClicked: {
@@ -300,7 +303,7 @@ ApplicationWindow {
                     height: view.height
 
                     Column {
-//                        spacing: 40
+                        spacing: 40
                         width: parent.width
 
                         Label {
@@ -317,8 +320,10 @@ ApplicationWindow {
                         source: "qrc:/images/brower.svg"
                         anchors.horizontalCenter: parent.horizontalCenter
                         anchors.verticalCenter: parent.verticalCenter
+                        opacity: browerbtn.pressed? 0.5 : 1
 
                         MouseArea {
+                            id: browerbtn
                             anchors.fill: parent
 
                             onClicked: {
