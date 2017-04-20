@@ -1,6 +1,6 @@
 TEMPLATE = app
 TARGET = rockery
-QT += quick quickcontrols2
+QT += quickcontrols2
 
 SOURCES += \
     rockery.cpp \
