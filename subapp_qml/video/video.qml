@@ -116,7 +116,9 @@ Page {
                 Layout.fillWidth: true
 
                 value: 0.0
-                onValueChanged: mediaplayer.seek(value * mediaplayer.duration)
+                onPressedChanged: {
+                        mediaplayer.seek(value * mediaplayer.duration)
+                }
             }
 
             RowLayout {
