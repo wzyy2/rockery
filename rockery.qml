@@ -164,10 +164,6 @@ ApplicationWindow {
                     title: "Video"
                     source: "qrc:/subapp_qml/video/video.qml"
                 }
-                ListElement {
-                    title: "GLES"
-                    source: "qrc:/subapp_qml/gles/gles.qml"
-                }
             }
 
             ScrollIndicator.vertical: ScrollIndicator {
@@ -199,28 +195,22 @@ ApplicationWindow {
                             width: parent.width
                             wrapMode: Label.Wrap
                             horizontalAlignment: Qt.AlignHCenter
-                            text: "GLES subapp will help you test on-screen graphics rendering performance.\n"
-                                  + "To test off-screen performance, glmark2-es2 is a better choose. \n"
+                            text: "Camera subapp can show camera preview with rockchip isp driver.\n"
                                   + "\n Under construction.\n"
-
                         }
                     }
                     Image {
                         sourceSize.height: parent.height / 3
 
-                        source: "qrc:/images/gpu.svg"
+                        source: "qrc:/images/camera.svg"
                         anchors.horizontalCenter: parent.horizontalCenter
                         anchors.verticalCenter: parent.verticalCenter
-                        opacity: gpubtn.pressed? 0.5 : 1
-
+                        opacity: camerabtn.pressed? 0.5 : 1
                         MouseArea {
-                            id: gpubtn
+                            id: camerabtn
                             anchors.fill: parent
+
                             onClicked: {
-                                listView.currentIndex = 2
-                                stackView.push(
-                                            "qrc:/subapp_qml/gles/gles.qml")
-                                drawer.close()
                             }
                         }
                     }
@@ -260,39 +250,6 @@ ApplicationWindow {
                                 stackView.push(
                                             "qrc:/subapp_qml/video/video.qml")
                                 drawer.close()
-                            }
-                        }
-                    }
-                }
-
-                Pane {
-                    width: view.width
-                    height: view.height
-
-                    Column {
-                        spacing: 40
-                        width: parent.width
-
-                        Label {
-                            width: parent.width
-                            wrapMode: Label.Wrap
-                            horizontalAlignment: Qt.AlignHCenter
-                            text: "Camera subapp can show camera preview with rockchip isp driver.\n"
-                                  + "\n Under construction.\n"
-                        }
-                    }
-                    Image {
-                        sourceSize.height: parent.height / 3
-
-                        source: "qrc:/images/camera.svg"
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        anchors.verticalCenter: parent.verticalCenter
-                        opacity: camerabtn.pressed? 0.5 : 1
-                        MouseArea {
-                            id: camerabtn
-                            anchors.fill: parent
-
-                            onClicked: {
                             }
                         }
                     }

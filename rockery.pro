@@ -4,9 +4,7 @@ QT += quickcontrols2
 
 SOURCES += \
     rockery.cpp \
-    fpstext.cpp \
-    subapp/gles/gles-triangle-renderer.cpp \
-    subapp/gles/gles-triangle-view.cpp
+    fpstext.cpp
 
 OTHER_FILES += \
     rockery.qml
@@ -22,6 +20,4 @@ DISTFILES += \
     subapp_qml/gles/*.qml
 
 HEADERS += \
-    fpstext.h \
-    subapp/gles/gles-triangle-renderer.h \
-    subapp/gles/gles-triangle-view.h
+    fpstext.h

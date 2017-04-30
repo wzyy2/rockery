@@ -49,7 +49,6 @@
 #include <QCommandLineOption>
 
 #include "fpstext.h"
-#include "subapp/gles/gles-triangle-view.h"
 
 int main(int argc, char *argv[])
 {
@@ -64,7 +63,6 @@ int main(int argc, char *argv[])
 
     /* show fps */
     qmlRegisterType<FPSText>("com.rk.fpstext", 1, 0, "FPSText");
-    qmlRegisterType<Qoet::GLESTriangleView>("com.rk.gles", 1, 0, "GLESTriangleView");
 
     QQmlApplicationEngine engine;
     engine.load(QUrl("qrc:/rockery.qml"));

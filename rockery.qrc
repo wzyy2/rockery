@@ -46,7 +46,6 @@
         <file>images/pause.svg</file>
         <file>images/open.svg</file>
         <file>images/fullscreen.svg</file>
-        <file>subapp_qml/gles/gles.qml</file>
         <file>images/gpu.svg</file>
         <file>images/camera.svg</file>
         <file>images/brower.svg</file>

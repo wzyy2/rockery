@@ -9,7 +9,8 @@ import QtQuick.Window 2.1
 Page {
     id: page
 
-    function switchFullScreen() // javascript functions
+    // javascript functions
+    function switchFullScreen()
     {
         if (!mainWindow.fullscreen) {
             if (mainWindow.visibility === Window.FullScreen) {
@@ -146,6 +147,7 @@ Page {
                     onClicked: fileDialog.visible = true
                 }
             }
+
         }
     }
 }
