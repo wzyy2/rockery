@@ -164,6 +164,10 @@ ApplicationWindow {
                     title: "Video"
                     source: "qrc:/subapp_qml/video/video.qml"
                 }
+                ListElement {
+                    title: "Browser"
+                    source: "qrc:/subapp_qml/browser/browser.qml"
+                }
             }
 
             ScrollIndicator.vertical: ScrollIndicator {
@@ -267,8 +271,7 @@ ApplicationWindow {
                             width: parent.width
                             wrapMode: Label.Wrap
                             horizontalAlignment: Qt.AlignHCenter
-                            text: "Brower subapp provides an integrated Web browser component based on WebKit.\n"
-                                  + "\n Under construction.\n"
+                            text: "Brower subapp provides an integrated Web browser component based on Webengine.\n"
                         }
                     }
                     Image {
@@ -284,6 +287,11 @@ ApplicationWindow {
                             anchors.fill: parent
 
                             onClicked: {
+                                listView.currentIndex = 3
+                                stackView.push(
+                                            "qrc:/subapp_qml/browser/browser.qml")
+
+                                drawer.close()
                             }
                         }
                     }

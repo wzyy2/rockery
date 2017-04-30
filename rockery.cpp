@@ -47,6 +47,7 @@
 #include <QQuickItem>
 #include <QCommandLineParser>
 #include <QCommandLineOption>
+#include <QtWebEngine/qtwebengineglobal.h>
 
 #include "fpstext.h"
 
@@ -72,6 +73,9 @@ int main(int argc, char *argv[])
 
     QObject::connect(rootObject, SIGNAL(afterRendering()),
                      rootObject, SLOT(updateFPS()));
+
+    /* init webengine */
+     QtWebEngine::initialize();
 
     /* fullscreen */
     QCommandLineParser parser;

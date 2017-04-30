@@ -1,6 +1,6 @@
 TEMPLATE = app
 TARGET = rockery
-QT += quickcontrols2
+QT += quickcontrols2 webengine
 
 SOURCES += \
     rockery.cpp \
@@ -17,7 +17,8 @@ INSTALLS += target
 
 DISTFILES += \
     subapp_qml/video/*.qml \
-    subapp_qml/gles/*.qml
+    subapp_qml/gles/*.qml \
+    subapp_qml/browser/*.qml
 
 HEADERS += \
     fpstext.h

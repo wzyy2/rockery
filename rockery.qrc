@@ -49,5 +49,10 @@
         <file>images/gpu.svg</file>
         <file>images/camera.svg</file>
         <file>images/brower.svg</file>
+        <file>subapp_qml/browser/browser.qml</file>
+        <file>images/go-next.png</file>
+        <file>images/go-previous.png</file>
+        <file>images/process-stop.png</file>
+        <file>images/view-refresh.png</file>
     </qresource>
 </RCC>

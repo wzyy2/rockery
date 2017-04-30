@@ -7,7 +7,7 @@ import QtQuick.Layouts 1.3
 import QtQuick.Window 2.1
 
 Page {
-    id: page
+    id: videoPage
 
     // javascript functions
     function switchFullScreen()
